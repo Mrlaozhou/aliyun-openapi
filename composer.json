@@ -1,0 +1,27 @@
+{
+    "name": "mrlaozhou/aliyun-openapi",
+    "keywords": ["aliyun", "vod", "mrlaozhou"],
+    "description": "All of the Aliyun openapi .",
+    "authors": [
+        {
+            "name": "luke",
+            "email": "zgsself@163.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Mrloazhou\\Aliyun\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mrlaozhou\\Aliyun\\LaravelAliyunServiceProvider"
+            ],
+            "aliases": {
+                "AliyunVod": "Mrlaozhou\\Aliyun\\Facades\\AliyunVod"
+            }
+        }
+    }
+}
