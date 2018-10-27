@@ -17,7 +17,8 @@ php artisan vendor:publish --provider="Mrlaozhou\Aliyun\LaravelAliyunServiceProv
 ```bash
 // 	继承类
 \Mrlaozhou\Aliyun\AliyunServiceProvider
-//	实现 getAutoload 方法 (获取要加载的aliyun目录)
+//	实现 setAliyunAutoload 方法 (获取要加载的aliyun目录)
+//	实现 setAliyunPath 方法 (获取阿里云openapi路径)
 ```
 
 ## Document
@@ -102,11 +103,31 @@ return = [
 #### Facade
 
 ```bash
+ * 获取客户端实例
+Aliyun::client();
+AliyunVod::cliect();
 
-//	视频点播
-AliyunVod::client();
-AliyunVod::videoInfo();
-AliyunVod::createUploadAuth();
-AliyunVod::refreshUploadAuth();
-AliyunVod::createImageUploadAuth();
+ * 视频播放
+AliyunVod::playInfo ($videoId, $expire=3600*24, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::createPlayAuth ($videoId,$expire=3600, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+
+ * 视频上传
+AliyunVod::createUploadAuth (array $videoInfo,$accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::refreshUploadAuth (string $videoId, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai' )
+AliyunVod::createImageUploadAuth ($imageType, $imageExt, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai' )
+ 
+ * 视频管理 
+AliyunVod::videoInfo ( $videoId, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai' )
+AliyunVod::updateVideoInfo($videoId,array $videoInfo, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::deleteVideos ($videoIds, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::videosList (array $wheres,$accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::deleteStream ($videoId, $jobIds, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai' )
+AliyunVod::mezzanineInfo ($videoId, $expire=3600*5, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+ 
+ * 分类管理
+AliyunVod::createCategory (array $attributes,$accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::updateCategory (array $attribute, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::deleteCategory (int $cateId, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai')
+AliyunVod::getCategories (array $wheres, $accessKeyId='', $accessKeySecret='',$regionId='cn-shanghai' )
+ *
 ```

@@ -8,7 +8,9 @@
             "email": "zgsself@163.com"
         }
     ],
-    "require": {},
+    "require": {
+        "anchnet/aliyun-openapi-php-sdk": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "Mrlaozhou\\Aliyun\\": "src"
@@ -20,7 +22,8 @@
                 "Mrlaozhou\\Aliyun\\LaravelAliyunServiceProvider"
             ],
             "aliases": {
-                "AliyunVod": "Mrlaozhou\\Aliyun\\Facades\\AliyunVod"
+                "AliyunVod": "Mrlaozhou\\Aliyun\\Facades\\AliyunVod",
+                "Aliyun": "Mrlaozhou\\Aliyun\\Facades\\Aliyun"
             }
         }
     }

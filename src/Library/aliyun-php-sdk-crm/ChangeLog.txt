@@ -1,3 +1,0 @@
-2018-10-24 Version: 2.2.0
-1,  Add feature to support lightweight bid user to operate realname certification.
-

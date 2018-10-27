@@ -14,9 +14,10 @@ abstract class AliyunServiceProvider extends ServiceProvider
      */
     protected function includeAliyunFiles ()
     {
-        include_once __DIR__ . '/Library/aliyun-php-sdk-core/Autoloader/Autoloader.php';
-        include_once __DIR__ . '/Library/aliyun-php-sdk-core/Regions/EndpointConfig.php';
-        include_once __DIR__ . '/Library/aliyun-php-sdk-core/Regions/LocationService.php';
+        $aliyunOpenapiPath          =   $this->setAliyunPath();
+        include_once $aliyunOpenapiPath . '/aliyun-php-sdk-core/Autoloader/Autoloader.php';
+        include_once $aliyunOpenapiPath . '/aliyun-php-sdk-core/Regions/EndpointConfig.php';
+        include_once $aliyunOpenapiPath . '/aliyun-php-sdk-core/Regions/LocationService.php';
     }
 
     /**
@@ -24,7 +25,7 @@ abstract class AliyunServiceProvider extends ServiceProvider
      */
     final protected function registerAutoload ()
     {
-        $autoloadCollection         =   collect( $this->getAutoload() ?: [] );
+        $autoloadCollection         =   collect( $this->setAliyunAutoload() ?: [] );
 
         $autoloadCollection->every(function ($item) {
             \Autoloader::addAutoloadPath($item);
@@ -41,5 +42,7 @@ abstract class AliyunServiceProvider extends ServiceProvider
         define('HTTP_PROXY_PORT', config('aliopen.http_proxy_port', 8888));
     }
 
-    abstract protected function getAutoload ();
+    abstract protected function setAliyunAutoload ();
+
+    abstract protected function setAliyunPath () ;
 }
