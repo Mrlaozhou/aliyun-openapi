@@ -4,7 +4,7 @@ namespace Mrlaozhou\Aliyun\Managers;
 
 use Illuminate\Support\Arr;
 use Mrlaozhou\Aliyun\Exception\AliyunException;
-use \vod\Request\V20170321 as vod;
+use \Vod\Request\V20170321 as vod;
 
 class LaravelAliyunVodManager extends LaravelAliyunManager
 {
