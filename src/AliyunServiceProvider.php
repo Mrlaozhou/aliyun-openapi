@@ -37,9 +37,9 @@ abstract class AliyunServiceProvider extends ServiceProvider
      */
     protected function registerConstant ()
     {
-        define('ENABLE_HTTP_PROXY', config('aliopen.enable_http_proxy', false) );
-        define('HTTP_PROXY_IP', config('aliopen.http_proxy_ip', '127.0.0.1') );
-        define('HTTP_PROXY_PORT', config('aliopen.http_proxy_port', 8888));
+        defined('ENABLE_HTTP_PROXY') or define('ENABLE_HTTP_PROXY', config('aliopen.enable_http_proxy', false) );
+        defined('HTTP_PROXY_IP') or define('HTTP_PROXY_IP', config('aliopen.http_proxy_ip', '127.0.0.1') );
+        defined('HTTP_PROXY_PORT') or define('HTTP_PROXY_PORT', config('aliopen.http_proxy_port', 8888));
     }
 
     abstract protected function setAliyunAutoload ();
