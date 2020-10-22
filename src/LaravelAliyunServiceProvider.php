@@ -64,6 +64,6 @@ class LaravelAliyunServiceProvider extends AliyunServiceProvider
      */
     protected function setAliyunPath()
     {
-        return base_path('vendor/anchnet/aliyun-openapi-php-sdk');
+        return base_path('vendor/mrlaozhou/aliyun-sdk');
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "mrlaozhou/aliyun-openapi",
-    "keywords": ["aliyun", "vod", "mrlaozhou"],
+    "keywords": ["aliyun", "vod", "mrlaozhou", "oss"],
     "description": "All of the Aliyun openapi .",
     "authors": [
         {
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "anchnet/aliyun-openapi-php-sdk": "dev-master"
+        "mrlaozhou/aliyun-sdk": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -13,33 +13,12 @@ return [
         /**
          * Custom
          */
-        'aliyun-php-sdk-vod',
 
         /**
          * Default
          */
-        'aliyun-php-sdk-ecs',
-        'aliyun-php-sdk-batchcompute',
-        'aliyun-php-sdk-sts',
-        'aliyun-php-sdk-push',
-        'aliyun-php-sdk-ram',
-        'aliyun-php-sdk-ubsms',
-        'aliyun-php-sdk-ubsms-inner',
-        'aliyun-php-sdk-green',
-        'aliyun-php-sdk-dm',
-        'aliyun-php-sdk-iot',
-        'aliyun-php-sdk-jaq',
-        'aliyun-php-sdk-cs',
-        'aliyun-php-sdk-live',
-        'aliyun-php-sdk-vpc',
-        'aliyun-php-sdk-kms',
-        'aliyun-php-sdk-rds',
-        'aliyun-php-sdk-slb',
-        'aliyun-php-sdk-cms',
-        'aliyun-php-sdk-idst',
-        'aliyun-php-sdk-saf',
-        'aliyun-php-sdk-imm',
-        'aliyun-php-sdk-mts'
+        'aliyun-php-sdk-vod',
+        'aliyun-php-sdk-oss',
     ],
     /*
     |--------------------------------------------------------------------------
