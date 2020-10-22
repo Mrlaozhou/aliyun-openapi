@@ -43,4 +43,9 @@ return [
     'http_proxy_ip'         =>  '127.0.0.1',
 
     'http_proxy_port'       =>  8888,
+
+
+    'vod'               =>  [
+        'callbackUrl'       =>  ''
+    ]
 ];

@@ -111,7 +111,7 @@ class AliyunVodUploader
      * 上传网络图片文件到点播，最大支持48.8TB的单个文件(需本地磁盘空间足够)；会先下载到本地临时目录，再上传到点播存储
      * @param UploadImageRequest $uploadVideoRequest: UploadImageRequest类的实例，注意filePath为网络文件的URL地址
      * @return array, array('ImageId'=>'xxxxx', 'ImageURL'=>'http://xxx.jpg')
-     * @throws Exception
+     * @throws \Exception
      */
     public function uploadWebImage($uploadImageRequest)
     {
@@ -412,7 +412,6 @@ class AliyunVodUploader
         }
 
         $data = $this->requestUploadInfo($request, 'video');
-        AliyunVodLog::printLog("CreateUploadVideo, FilePath: %s, VideoId: %s", $uploadVideoRequest->getFilePath(), $data->VideoId);
         return $data;
     }
 
@@ -443,7 +442,6 @@ class AliyunVodUploader
         $request->setVideoId($videoId);
 
         $data = $this->requestUploadInfo($request, 'video');
-        AliyunVodLog::printLog("RefreshUploadVideo, VideoId: %s", $data->VideoId);
         return $data;
     }
 
@@ -480,8 +478,6 @@ class AliyunVodUploader
         }
 
         $data = $this->requestUploadInfo($request, 'image');
-        AliyunVodLog::printLog("CreateUploadImage, FilePath: %s, ImageId: %s, ImageURL: %s",
-            $uploadImageRequest->getFilePath(), $data->ImageId, $data->ImageURL);
         return $data;
     }
 
@@ -521,8 +517,6 @@ class AliyunVodUploader
         }
 
         $data = $this->requestUploadInfo($request, 'attached');
-        AliyunVodLog::printLog("CreateUploadAttachedMedia, FilePath: %s, MediaId: %s, MediaURL: %s",
-            $uploadAttachedRequest->getFilePath(), $data->MediaId, $data->MediaURL);
         return $data;
     }
 
@@ -533,8 +527,6 @@ class AliyunVodUploader
 
         $bucketHost = str_replace('://', '://'.$uploadInfo->UploadAddress->Bucket.".",
             $uploadInfo->UploadAddress->Endpoint);
-        AliyunVodLog::printLog("UploadFile %s Finish, MediaId: %s, FilePath: %s, Destination: %s/%s",
-            $uploadInfo->MediaType, $uploadInfo->MediaId, $filePath, $bucketHost, $object);
     }
 
     // 定义进度条回调函数；$consumedBytes: 已上传的数据量，$totalBytes：总数据量

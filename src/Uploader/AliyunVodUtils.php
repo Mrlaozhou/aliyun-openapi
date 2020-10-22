@@ -4,6 +4,8 @@ namespace Mrlaozhou\Aliyun\Uploader;
  * Created by Aliyun ApsaraVideo VoD.
  * User: https://www.aliyun.com/product/vod
  */
+
+use Illuminate\Support\Facades\Storage;
 use OSS\Core\OssUtil;
 
 class AliyunVodUtils
@@ -152,7 +154,7 @@ class AliyunVodReportUpload
     {
         try {
             \HttpHelper::$connectTimeout = 1;
-            \HttpHelper::$zreadTimeout = 2;
+            \HttpHelper::$readTimeout = 2;
             $authTimestamp = time();
             $authInfo = md5(sprintf("%s|%s|%s", $clientId, self::VOD_REPORT_KEY, $authTimestamp));
             $fields = array('Action'=>'ReportUploadProgress', 'Format'=>'JSON', 'Version'=>'2017-03-21',
@@ -171,9 +173,9 @@ class AliyunVodReportUpload
             );
 
             $url = (self::$isEnableSSL ? 'https://' : 'http://') . self::VOD_REPORT_URL;
-            HttpHelper::curl($url,'POST', $fields);
+            \HttpHelper::curl($url,'POST', $fields);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             AliyunVodLog::printLog("reportUploadProgress failed, ErrorMessage: %s\n", $e->getMessage());
         }
     }
@@ -185,7 +187,7 @@ class AliyunVodReportUpload
             $len = $fileSize <= self::REPORT_FILE_HASH_READ_LEN ? $fileSize : self::REPORT_FILE_HASH_READ_LEN;
             $str = fread($fp, $len);
             fclose($fp);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $str = sprintf("%s|%s|%s", $clientId, $filePath, @filemtime($filePath));
         }
         return md5($str);
@@ -202,13 +204,16 @@ class AliyunVodDownloader
             $this->saveLocalDir = $saveLocalDir;
         }
         else {
-            $this->saveLocalDir = dirname(__DIR__) . '/tmp_dlfiles/';
+            $this->saveLocalDir = storage_path('app/tmp_dlfiles/');
         }
     }
 
     public function downloadFile($downloadUrl, $localFileName, $fileSize=null)
     {
         $localPath = $this->saveLocalDir . $localFileName;
+        if( file_exists($localPath) ) {
+            return $localPath;
+        }
         AliyunVodLog::printLog("Download %s To %s", $downloadUrl, $localPath);
 
         if (isset($fileSize)) {
@@ -223,13 +228,13 @@ class AliyunVodDownloader
 
         $sfp = @fopen($downloadUrl, "rb");
         if ($sfp === false) {
-            throw new Exception("download file fail while reading ".$downloadUrl,
+            throw new \Exception("download file fail while reading ".$downloadUrl,
                 AliyunVodError::VOD_ERR_FILE_DOWNLOAD);
         }
 
         $dfp = @fopen(OssUtil::encodePath($localPath), "ab+");
         if ($sfp === false) {
-            throw new Exception("download file fail while writing ".$localPath,
+            throw new \Exception("download file fail while writing ".$localPath,
                 AliyunVodError::VOD_ERR_FILE_DOWNLOAD);
         }
         while (!feof($sfp)) {

@@ -1,6 +1,7 @@
 <?php
 namespace Mrlaozhou\Aliyun\Traits;
 
+use Illuminate\Http\File;
 use Mrlaozhou\Aliyun\Uploader\AliyunVodUploader;
 use Mrlaozhou\Aliyun\Uploader\UploadVideoRequest;
 use Symfony\Component\Finder\SplFileInfo;
@@ -9,22 +10,56 @@ trait AliyunVodUploadTrait
 {
 
     /**
-     * @param string|SplFileInfo     $file
-     * @param array|null $data
-     * @throws \Exception
+     * @param string $file
+     * @param string $title
+     * @param string $data
+     *
      * @return string
+     * @throws \Exception
      */
-    public function vodUpload(string $file, array $data = [])
+    public function vodLocalUpload(string $file, string $title = '', $data = '')
     {
-        $userData       =   [
-            'MessageCallback'   =>  ["CallbackURL"=>"https://demo.sample.com/ProcessMessageCallback"],
-            'Extend'            =>  ["localId"=>"xxx", "test"=>"www"]
-        ];
-        $userData       =   array_merge($userData, $data);
-        $uploader       =   new AliyunVodUploader(config('aliopen.accessKeyId'), config('aliopen.accessKeySecret'));
-        $uploadVideoRequest     =   new UploadVideoRequest($this->getFilename($file), 'testUploadLocalVideo via PHP-SDK');
-        $uploadVideoRequest->setUserData(json_encode($userData));
-        return $uploader->uploadLocalVideo($uploadVideoRequest);
+        return $this->getUploader()->uploadLocalVideo(
+            $this->prepareAliyunVodRequest($file, $title, $data)
+        );
+    }
+
+    /**
+     * @param string $url
+     * @param        $title
+     * @param array  $data
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function vodWebUpload(string $url, string $title = '', $data = '')
+    {
+        return $this->getUploader()->uploadWebVideo(
+            $this->prepareAliyunVodRequest($url, $title, $data)
+        );
+    }
+
+    /**
+     * @param       $filename
+     * @param null  $title
+     * @param  $data
+     *
+     * @return \Mrlaozhou\Aliyun\Uploader\UploadVideoRequest
+     * @throws \Exception
+     */
+    protected function prepareAliyunVodRequest($filename, string $title, $data = null)
+    {
+        $uploadVideoRequest =   new UploadVideoRequest($this->getFilename($filename), $title ?: '' );
+        $data && $uploadVideoRequest->setUserData($data);
+        return $uploadVideoRequest;
+    }
+
+    /**
+     * @return \Mrlaozhou\Aliyun\Uploader\AliyunVodUploader
+     */
+    protected function getUploader()
+    {
+        return new AliyunVodUploader(config('aliopen.accessKeyId'), config('aliopen.accessKeySecret'));
     }
 
     protected function getFilename($file)
