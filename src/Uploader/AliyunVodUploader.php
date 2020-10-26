@@ -5,7 +5,7 @@ namespace Mrlaozhou\Aliyun\Uploader;
  * User: https://www.aliyun.com/product/vod
  */
 
-use vod\Request\V20170321 as vod;
+use Vod\Request\V20170321 as vod;
 use OSS\OssClient;
 use OSS\Core\OssUtil;
 
