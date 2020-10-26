@@ -19,7 +19,7 @@ class LaravelAliyunServiceProvider extends AliyunServiceProvider
         //  加载阿里云加载文件
         $this->includeAliyunFiles();
         //  注册自动加载
-        $this->registerAutoload();
+//        $this->registerAutoload();
         //  声明常量
         $this->registerConstant();
         //
